@@ -1,0 +1,41 @@
+HKCR
+{
+    NoRemove CLSID
+    {
+        ForceRemove {C81052F0-A5FF-40C3-817A-8A7F7A2DCF89} = s 'Wmpplugin1 Class'
+        {
+            InprocServer32 = s '%MODULE%'
+            {
+                val ThreadingModel = s 'Apartment'
+            }
+            'TypeLib' = s '{A89183DE-ACA1-420F-9B1B-A5A779056D3E}'
+        }
+    }
+}
+HKEY_LOCAL_MACHINE
+{
+    NoRemove SOFTWARE
+    {
+        NoRemove Microsoft
+        {
+            NoRemove MediaPlayer
+            {
+                NoRemove Objects
+                {
+                    NoRemove Effects
+                    {
+                        ForceRemove Wmpplugin1
+                        {
+                            Properties
+                            {
+                                val classid = s '{C81052F0-A5FF-40C3-817A-8A7F7A2DCF89}'
+                                val name = s 'res://wmpplugin1.dll/RT_STRING/#101'
+                                val description = s 'res://wmpplugin1.dll/RT_STRING/#105'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

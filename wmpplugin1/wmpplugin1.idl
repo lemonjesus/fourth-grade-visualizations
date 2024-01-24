@@ -1,0 +1,40 @@
+// iwmpplugin1.idl : IDL source for wmpplugin1.dll
+// Copyright (c) Microsoft Corporation. All rights reserved.
+
+// This file will be processed by the MIDL tool to
+// produce the type library (iwmpplugin1.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+    [
+        object,
+        uuid(5AAAC01D-2CA1-4B47-813D-3783C5B6AA0D),
+        dual,
+        helpstring("IWmpplugin1 Interface"),
+        pointer_default(unique)
+    ]
+    interface IWmpplugin1 : IDispatch
+    {
+        [propget, id(1), helpstring("property foregroundColor")] HRESULT foregroundColor([out, retval] BSTR *pVal);
+        [propput, id(1), helpstring("property foregroundColor")] HRESULT foregroundColor([in] BSTR newVal);
+    };
+
+[
+    uuid(A89183DE-ACA1-420F-9B1B-A5A779056D3E),
+    version(1.0),
+    helpstring("Wmpplugin1 1.0 Type Library")
+]
+library WMPPLUGIN1Lib
+{
+    importlib("stdole32.tlb");
+    importlib("stdole2.tlb");
+
+    [
+        uuid(C81052F0-A5FF-40C3-817A-8A7F7A2DCF89),
+        helpstring("Wmpplugin1 Class")
+    ]
+    coclass Wmpplugin1
+    {
+        [default] interface IWmpplugin1;
+    };
+};
