@@ -12,14 +12,15 @@
 #include "resource.h"
 #include "effects.h"
 #include "wmpplugin1_h.h"
-#include "gdiplus.h"
-#pragma comment(lib,"gdiplus.lib")
 
 #include <d2d1.h>
+#include <d2d1_1.h>
 #include <d2d1helper.h>
+#include <d2d1effects.h>
 #include <dwrite.h>
 #include <wincodec.h>
 #pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dxguid.lib")
 
 template<class Interface>
 inline void SafeRelease(
@@ -69,11 +70,14 @@ private:
     DWORD SwapBytes(DWORD dwRet);
 
 	unsigned char hue;
-	Gdiplus::Bitmap* bitmap;
-
 	ID2D1Factory* m_pD2DFactory;
+	ID2D1DeviceContext* deviceContext;
 	ID2D1DCRenderTarget* m_pDCRT;
 	ID2D1SolidColorBrush *m_pBrush;
+
+	ID2D1BitmapRenderTarget *bitmapTarget;
+	ID2D1Effect *blur;
+	ID2D1Bitmap *bitmap;
 
 	bool bound;
 public:

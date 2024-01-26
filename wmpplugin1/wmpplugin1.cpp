@@ -16,6 +16,9 @@
 
 using namespace Gdiplus;
 
+#define INTERNAL_WIDTH 480
+#define INTERNAL_HEIGHT 480
+
 /////////////////////////////////////////////////////////////////////////////
 // CWmpplugin1::CWmpplugin1
 // Constructor
@@ -25,10 +28,12 @@ m_hwndParent(NULL),
 m_clrForeground(0xFF0000),
 m_nPreset(0),
 hue(0),
-bitmap(NULL),
 m_pD2DFactory(NULL),
 m_pDCRT(NULL),
-bound(false)
+bound(false),
+bitmapTarget(NULL),
+blur(NULL),
+bitmap(NULL)
 {
 }
 
@@ -48,7 +53,7 @@ CWmpplugin1::~CWmpplugin1()
 
 HRESULT CWmpplugin1::FinalConstruct() {
 	D2D1_FACTORY_OPTIONS options;
-    options.debugLevel = D2D1_DEBUG_LEVEL_INFORMATION;
+	options.debugLevel = D2D1_DEBUG_LEVEL_ERROR;
 	D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, options, &m_pD2DFactory);
 
 	D2D1_RENDER_TARGET_PROPERTIES props = D2D1::RenderTargetProperties(
@@ -64,6 +69,8 @@ HRESULT CWmpplugin1::FinalConstruct() {
 	m_pD2DFactory->CreateDCRenderTarget(&props, &m_pDCRT);
 
 	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 1.0f),&m_pBrush);
+	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bitmapTarget);
+	bitmapTarget->GetBitmap(&bitmap);
 
 	return S_OK;
 }
@@ -87,15 +94,9 @@ void CWmpplugin1::FinalRelease() {
 //////////////////////////////////////////////////////////////////////////////
 STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 	HRESULT hr;
-	
-	if(!bound) {
-		m_pDCRT->BindDC(hdc, prc);
-		bound = true;
-	}
 
-	m_pDCRT->BeginDraw();
-
-    m_pDCRT->SetTransform(D2D1::Matrix3x2F::Identity());
+	D2D1_SIZE_F sizef = D2D1::SizeF(INTERNAL_WIDTH, INTERNAL_HEIGHT); //D2D1::SizeF((prc->right - prc->left)/4, (prc->bottom - prc->top)/4);
+	D2D1_RECT_F rectf = D2D1::RectF(0, 0, sizef.width, sizef.height);
 
 	HsvColor hsv;
 	hsv.h = hue++;
@@ -105,16 +106,18 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 	RgbColor rgb = HsvToRgb(hsv);
 	m_pBrush->SetColor(D2D1::ColorF(rgb.r/255.0, rgb.g/255.0, rgb.b/255.0));
 
+	bitmapTarget->BeginDraw();
+
     // draw using the current preset
     switch (m_nPreset)
     {
     case PRESET_BARS:
         {
             // Walk through the frequencies until we run out of levels or drawing surface.
-            for (int x = prc->left; x < prc->right && x < (SA_BUFFER_SIZE-1); ++x)
+            for (int x = rectf.left; x < rectf.right && x < (SA_BUFFER_SIZE-1); ++x)
             {
-                int y = static_cast<int>(((prc->bottom - prc->top)/256.0f) * pLevels->frequency[0][x - (prc->left - 1)]);
-				m_pDCRT->DrawLine(D2D1::Point2F(x, prc->bottom), D2D1::Point2F(x, y), m_pBrush);
+                int y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->frequency[0][x - ((int)rectf.left - 1)]);
+				bitmapTarget->DrawLine(D2D1::Point2F(x, rectf.bottom), D2D1::Point2F(x, y), m_pBrush);
             }
         }
         break;
@@ -122,21 +125,41 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
     case PRESET_SCOPE:
         {
             // Walk through the waveform data until we run out of samples or drawing surface.
-            int y = static_cast<int>(((prc->bottom - prc->top)/256.0f) * pLevels->waveform[0][0]);
+            int y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->waveform[0][0]);
 			int prevx = 0, prevy = y;
-            for (int x = prc->left; x < prc->right && x < (SA_BUFFER_SIZE-1); ++x)
+            for (int x = rectf.left; x < rectf.right && x < (SA_BUFFER_SIZE-1); ++x)
             {
-                y = static_cast<int>(((prc->bottom - prc->top)/256.0f) * pLevels->waveform[0][x - (prc->left - 1)]);
-				m_pDCRT->DrawLine(D2D1::Point2F(prevx, prevy), D2D1::Point2F(x, y), m_pBrush);
+                y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->waveform[0][x - ((int)rectf.left - 1)]);
+				bitmapTarget->DrawLine(D2D1::Point2F(prevx, prevy), D2D1::Point2F(x, y), m_pBrush);
 				prevx = x;
 				prevy = y;
             }
         }
         break;
     }
+	bitmapTarget->EndDraw();
 
-	
-    hr = m_pDCRT->EndDraw();
+	HDC intermediateHDC = CreateCompatibleDC(hdc);
+	HBITMAP intermediateBitmap = CreateCompatibleBitmap(hdc, INTERNAL_WIDTH, INTERNAL_HEIGHT);
+	SelectObject(intermediateHDC, intermediateBitmap);
+	RECT r1 = {};
+	r1.top = 0;
+	r1.left = 0;
+	r1.bottom = INTERNAL_HEIGHT;
+	r1.right = INTERNAL_WIDTH;
+	m_pDCRT->BindDC(intermediateHDC, &r1);
+	m_pDCRT->BeginDraw();
+	m_pDCRT->SetTransform(D2D1::Matrix3x2F::Identity());
+	m_pDCRT->DrawBitmap(bitmap, rectf);
+	m_pDCRT->EndDraw();
+
+	StretchBlt(hdc, 0, 0, prc->right - prc->left, prc->bottom - prc->top, intermediateHDC, 0, 0, INTERNAL_WIDTH, INTERNAL_HEIGHT, SRCCOPY);
+
+	//m_pDCRT->BindDC(hdc, prc);
+	//m_pDCRT->BeginDraw();
+	//m_pDCRT->SetTransform(D2D1::Matrix3x2F::Identity());
+	//m_pDCRT->DrawBitmap(bitmap, D2D1::RectF(prc->left, prc->top, prc->right, prc->bottom));
+    //hr = m_pDCRT->EndDraw();
     return S_OK;
 }
 
