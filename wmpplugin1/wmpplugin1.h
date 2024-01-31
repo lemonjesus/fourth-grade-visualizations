@@ -62,7 +62,6 @@ class ATL_NO_VTABLE CWmpplugin1 :
     public IWMPEffects2
 {
 private:
-    COLORREF    m_clrForeground;    // foreground color
     LONG        m_nPreset;          // current preset
 
     HRESULT WzToColor(const WCHAR *pwszColor, COLORREF *pcrColor);
@@ -76,12 +75,10 @@ private:
 	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush;
 
 	ID2D1BitmapRenderTarget *bitmapTarget;
-	ID2D1BitmapRenderTarget *bitmapTarget2;
+	ID2D1BitmapRenderTarget *bgEffectTarget;
 	ID2D1Effect *blur, *displacement, *turbulence;
 	ID2D1Bitmap *bitmap;
-	ID2D1Bitmap *bitmap2;
-
-	bool bound;
+	ID2D1Bitmap *bgEffectBitmap;
 public:
     CWmpplugin1();
     ~CWmpplugin1();
