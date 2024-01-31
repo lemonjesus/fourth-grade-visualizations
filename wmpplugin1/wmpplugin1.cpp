@@ -69,6 +69,7 @@ HRESULT CWmpplugin1::FinalConstruct() {
     );
 	m_pD2DFactory->CreateDCRenderTarget(&props, &m_pDCRT);
 	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 1.0f),&m_pBrush);
+	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 0.3f),&m_pBlackBrush);
 	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bitmapTarget);
 	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bitmapTarget2);
 	bitmapTarget->QueryInterface(&m_d2dContext);
@@ -117,10 +118,11 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 	// background effects here
 	// how tf do effects work?
 	bitmapTarget2->BeginDraw();
-	bitmapTarget2->DrawBitmap(bitmap, rectf, 0.5f);
+	bitmapTarget2->DrawBitmap(bitmap, rectf);
 	bitmapTarget2->EndDraw();
 
 	m_d2dContext->BeginDraw();
+	m_d2dContext->Clear();
 	displacement->SetInput(0, bitmap2);
 	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, 100.0f);
 	displacement->SetInputEffect(1, turbulence);
@@ -130,6 +132,8 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 	blur->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, 1.0f);
 	m_d2dContext->DrawImage(blur, D2D1::Point2F(), rectf);
 	output->Release();
+
+	m_d2dContext->FillRectangle(rectf, m_pBlackBrush);
 
 	// foreground redraws here
     // draw using the current preset

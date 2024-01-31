@@ -73,7 +73,7 @@ private:
 	ID2D1Factory* m_pD2DFactory;
 	ID2D1DeviceContext* m_d2dContext;
 	ID2D1DCRenderTarget* m_pDCRT;
-	ID2D1SolidColorBrush *m_pBrush;
+	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush;
 
 	ID2D1BitmapRenderTarget *bitmapTarget;
 	ID2D1BitmapRenderTarget *bitmapTarget2;
