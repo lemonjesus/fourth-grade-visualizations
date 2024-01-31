@@ -32,8 +32,9 @@ m_pD2DFactory(NULL),
 m_pDCRT(NULL),
 bound(false),
 bitmapTarget(NULL),
-blur(NULL),
-bitmap(NULL)
+//blur(NULL),
+bitmap(NULL),
+m_d2dContext(NULL)
 {
 }
 
@@ -67,10 +68,16 @@ HRESULT CWmpplugin1::FinalConstruct() {
 		D2D1_FEATURE_LEVEL_DEFAULT
     );
 	m_pD2DFactory->CreateDCRenderTarget(&props, &m_pDCRT);
-
 	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 1.0f),&m_pBrush);
 	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bitmapTarget);
+	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bitmapTarget2);
+	bitmapTarget->QueryInterface(&m_d2dContext);
 	bitmapTarget->GetBitmap(&bitmap);
+	bitmapTarget2->GetBitmap(&bitmap2);
+
+	m_d2dContext->CreateEffect(CLSID_D2D1GaussianBlur, &blur);
+	m_d2dContext->CreateEffect(CLSID_D2D1DisplacementMap, &displacement);
+	m_d2dContext->CreateEffect(CLSID_D2D1Turbulence, &turbulence);
 
 	return S_OK;
 }
@@ -105,9 +112,26 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 
 	RgbColor rgb = HsvToRgb(hsv);
 	m_pBrush->SetColor(D2D1::ColorF(rgb.r/255.0, rgb.g/255.0, rgb.b/255.0));
+	
+	//bitmapTarget->BeginDraw();
+	// background effects here
+	// how tf do effects work?
+	bitmapTarget2->BeginDraw();
+	bitmapTarget2->DrawBitmap(bitmap, rectf, 0.5f);
+	bitmapTarget2->EndDraw();
 
-	bitmapTarget->BeginDraw();
+	m_d2dContext->BeginDraw();
+	displacement->SetInput(0, bitmap2);
+	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, 100.0f);
+	displacement->SetInputEffect(1, turbulence);
+	ID2D1Image *output = NULL;
+    displacement->GetOutput(&output);
+	blur->SetInput(0, output);
+	blur->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, 1.0f);
+	m_d2dContext->DrawImage(blur, D2D1::Point2F(), rectf);
+	output->Release();
 
+	// foreground redraws here
     // draw using the current preset
     switch (m_nPreset)
     {
@@ -117,7 +141,7 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
             for (int x = rectf.left; x < rectf.right && x < (SA_BUFFER_SIZE-1); ++x)
             {
                 int y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->frequency[0][x - ((int)rectf.left - 1)]);
-				bitmapTarget->DrawLine(D2D1::Point2F(x, rectf.bottom), D2D1::Point2F(x, y), m_pBrush);
+				m_d2dContext->DrawLine(D2D1::Point2F(x, rectf.bottom), D2D1::Point2F(x, y), m_pBrush);
             }
         }
         break;
@@ -130,14 +154,14 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
             for (int x = rectf.left; x < rectf.right && x < (SA_BUFFER_SIZE-1); ++x)
             {
                 y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->waveform[0][x - ((int)rectf.left - 1)]);
-				bitmapTarget->DrawLine(D2D1::Point2F(prevx, prevy), D2D1::Point2F(x, y), m_pBrush);
+				m_d2dContext->DrawLine(D2D1::Point2F(prevx, prevy), D2D1::Point2F(x, y), m_pBrush);
 				prevx = x;
 				prevy = y;
             }
         }
         break;
     }
-	bitmapTarget->EndDraw();
+	m_d2dContext->EndDraw();
 
 	HDC intermediateHDC = CreateCompatibleDC(hdc);
 	HBITMAP intermediateBitmap = CreateCompatibleBitmap(hdc, INTERNAL_WIDTH, INTERNAL_HEIGHT);

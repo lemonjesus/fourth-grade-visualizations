@@ -71,13 +71,15 @@ private:
 
 	unsigned char hue;
 	ID2D1Factory* m_pD2DFactory;
-	ID2D1DeviceContext* deviceContext;
+	ID2D1DeviceContext* m_d2dContext;
 	ID2D1DCRenderTarget* m_pDCRT;
 	ID2D1SolidColorBrush *m_pBrush;
 
 	ID2D1BitmapRenderTarget *bitmapTarget;
-	ID2D1Effect *blur;
+	ID2D1BitmapRenderTarget *bitmapTarget2;
+	ID2D1Effect *blur, *displacement, *turbulence;
 	ID2D1Bitmap *bitmap;
+	ID2D1Bitmap *bitmap2;
 
 	bool bound;
 public:
