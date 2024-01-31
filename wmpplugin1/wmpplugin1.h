@@ -68,7 +68,7 @@ private:
     HRESULT ColorToWz( BSTR* pbstrColor, COLORREF crColor);
     DWORD SwapBytes(DWORD dwRet);
 
-	unsigned char hue;
+	unsigned long long frame;
 	ID2D1Factory* m_pD2DFactory;
 	ID2D1DeviceContext* m_d2dContext;
 	ID2D1DCRenderTarget* m_pDCRT;

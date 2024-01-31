@@ -16,7 +16,7 @@
 // Constructor
 CWmpplugin1::CWmpplugin1() :
 m_nPreset(0),
-hue(0)
+frame(0)
 {}
 
 // Destructor
@@ -41,7 +41,7 @@ HRESULT CWmpplugin1::FinalConstruct() {
     );
 	m_pD2DFactory->CreateDCRenderTarget(&props, &m_pDCRT);
 	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 1.0f),&m_pBrush);
-	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 0.3f),&m_pBlackBrush);
+	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 0.1f),&m_pBlackBrush);
 	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bitmapTarget);
 	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bgEffectTarget);
 	bitmapTarget->QueryInterface(&m_d2dContext);
@@ -78,12 +78,13 @@ void CWmpplugin1::FinalRelease() {
 // CWmpplugin1::Render
 // Called when an effect should render itself to the screen.
 STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
-	// TODO: internal buffer should be a scaled factor of the render area, not constant
-	D2D1_SIZE_F sizef = D2D1::SizeF(INTERNAL_WIDTH, INTERNAL_HEIGHT); //D2D1::SizeF((prc->right - prc->left)/4, (prc->bottom - prc->top)/4);
+	D2D1_SIZE_F sizef = D2D1::SizeF(INTERNAL_WIDTH, INTERNAL_HEIGHT);
 	D2D1_RECT_F rectf = D2D1::RectF(0, 0, sizef.width, sizef.height);
 
+	frame++;
+
 	HsvColor hsv;
-	hsv.h = hue++;
+	hsv.h = frame%255;
 	hsv.s = 255;
 	hsv.v = 255;
 
@@ -97,14 +98,16 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 
 	m_d2dContext->BeginDraw();
 	m_d2dContext->Clear();
+	turbulence->SetValue(D2D1_TURBULENCE_PROP_SIZE, D2D1::Vector2F(sizef.width, sizef.height));
+	turbulence->SetValue(D2D1_TURBULENCE_PROP_SEED, ((unsigned int)frame)/100);
 	displacement->SetInput(0, bgEffectBitmap);
-	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, 100.0f);
+	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, 25.0f);
 	displacement->SetInputEffect(1, turbulence);
 	ID2D1Image *output = NULL;
     displacement->GetOutput(&output);
 	blur->SetInput(0, output);
 	blur->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, 1.0f);
-	m_d2dContext->DrawImage(blur, D2D1::Point2F(), rectf);
+	m_d2dContext->DrawImage(blur);
 	output->Release();
 
 	// fade out the background a bit
