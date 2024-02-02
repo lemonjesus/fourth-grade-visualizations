@@ -101,7 +101,7 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 	turbulence->SetValue(D2D1_TURBULENCE_PROP_SIZE, D2D1::Vector2F(sizef.width, sizef.height));
 	turbulence->SetValue(D2D1_TURBULENCE_PROP_SEED, ((unsigned int)frame)/100);
 	displacement->SetInput(0, bgEffectBitmap);
-	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, 25.0f);
+	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, (float)PropertyPage::displacementAmount);
 	displacement->SetInputEffect(1, turbulence);
 	ID2D1Image *output = NULL;
     displacement->GetOutput(&output);
@@ -173,7 +173,7 @@ STDMETHODIMP CWmpplugin1::MediaInfo(LONG lChannelCount, LONG lSampleRate, BSTR b
 STDMETHODIMP CWmpplugin1::GetCapabilities(DWORD * pdwCapabilities) {
     if (NULL == pdwCapabilities) return E_POINTER;
 
-    *pdwCapabilities = 0;
+    *pdwCapabilities = EFFECT_HASPROPERTYPAGE;
     return S_OK;
 }
 
@@ -356,6 +356,14 @@ STDMETHODIMP CWmpplugin1::put_foregroundColor(BSTR newVal) {
     return NULL; // WzToColor(newVal, &m_clrForeground);
 }
 
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
+
+STDMETHODIMP CWmpplugin1::DisplayPropertyPage(HWND hwndOwner) {
+	propPage.Show(hwndOwner);
+	return S_OK;
+}
 
 // CWmpplugin1::WzToColor
 // Helper function used to convert a string into a COLORREF.
@@ -437,4 +445,3 @@ HRESULT CWmpplugin1::ColorToWz( BSTR* pbstrColor, COLORREF crColor) {
 inline DWORD CWmpplugin1::SwapBytes(DWORD dwRet) {
     return ((dwRet & 0x0000FF00) | ((dwRet & 0x00FF0000) >> 16) | ((dwRet & 0x000000FF) << 16));
 }
-

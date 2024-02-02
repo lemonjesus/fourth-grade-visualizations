@@ -12,6 +12,7 @@
 #include "resource.h"
 #include "effects.h"
 #include "wmpplugin1_h.h"
+#include "PropertyPage.h"
 
 #include <d2d1.h>
 #include <d2d1_1.h>
@@ -79,6 +80,8 @@ private:
 	ID2D1Effect *blur, *displacement, *turbulence;
 	ID2D1Bitmap *bitmap;
 	ID2D1Bitmap *bgEffectBitmap;
+
+	PropertyPage propPage;
 public:
     CWmpplugin1();
     ~CWmpplugin1();
@@ -110,12 +113,12 @@ public:
     STDMETHOD(GetCapabilities)(DWORD * pdwCapabilities);
     STDMETHOD(GoFullscreen)(BOOL fFullScreen) { return E_NOTIMPL; };
     STDMETHOD(RenderFullScreen)(TimedLevel *pLevels) { return E_NOTIMPL; };
-    STDMETHOD(DisplayPropertyPage)(HWND hwndOwner) { return E_NOTIMPL; };
     STDMETHOD(GetTitle)(BSTR *bstrTitle);
     STDMETHOD(GetPresetTitle)(LONG nPreset, BSTR *bstrPresetTitle);
     STDMETHOD(GetPresetCount)(LONG *pnPresetCount);
     STDMETHOD(SetCurrentPreset)(LONG nPreset);
     STDMETHOD(GetCurrentPreset)(LONG *pnPreset);
+	STDMETHOD(DisplayPropertyPage)(HWND hwndOwner);
 
     // IWMPEffects2
     STDMETHOD(SetCore)(IWMPCore * pCore);

@@ -342,6 +342,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\PropertyPage.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\StdAfx.cpp"
 				>
 				<FileConfiguration
@@ -401,6 +405,10 @@
 			>
 			<File
 				RelativePath=".\color_util.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertyPage.h"
 				>
 			</File>
 			<File
