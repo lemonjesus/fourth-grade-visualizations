@@ -14,7 +14,6 @@ VizTheBar::~VizTheBar() {
 
 void VizTheBar::init(ID2D1DeviceContext* m_d2dContext) {
 	m_d2dContext->CreateEffect(CLSID_D2D1GaussianBlur, &blur);
-
 	m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 1.0f),&m_pBrush);
 	m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 0.1f),&m_pBlackBrush);
 }

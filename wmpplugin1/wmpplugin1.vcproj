@@ -395,6 +395,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizTheWave.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\wmpplugin1.cpp"
 				>
 			</File>
@@ -446,6 +450,10 @@
 			</File>
 			<File
 				RelativePath=".\VizTheBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizTheWave.h"
 				>
 			</File>
 			<File

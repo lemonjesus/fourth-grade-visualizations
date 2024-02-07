@@ -49,13 +49,6 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
 #endif
 
-// preset values
-enum {
-    PRESET_THEBAR = 0,
-    PRESET_THEWAVE,
-    PRESET_COUNT
-};
-
 /////////////////////////////////////////////////////////////////////////////
 // CWmpplugin1
 class ATL_NO_VTABLE CWmpplugin1 : 

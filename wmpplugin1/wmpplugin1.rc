@@ -103,8 +103,8 @@ BEGIN
     IDS_PROJNAME            "wmpplugin1"
     IDS_EFFECTNAME          "My First Visualization"
     IDS_PRESETNAME0         "The Bar"
-    IDS_PRESETNAME_SPARE    "Wave Scope"
-    IDS_PRESETNAME2         "The Wave"
+    IDS_PRESETNAME_DEFAULT  "Learning Exercise"
+    IDS_PRESETNAME1         "The Wave"
     IDS_DESCRIPTION         "I can't believe it's going to work the first time!"
 END
 

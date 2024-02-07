@@ -7,10 +7,10 @@
 #define IDS_BARSPRESETNAME              102
 #define IDS_PRESETNAME0                 102
 #define IDS_SCOPEPRESETNAME             103
-#define IDS_PRESETNAME1                 103
 #define IDS_PRESETNAME_SPARE            103
+#define IDS_PRESETNAME_DEFAULT          103
 #define IDR_WMPPLUGIN1                  104
-#define IDS_PRESETNAME2                 104
+#define IDS_PRESETNAME1                 104
 #define IDS_DESCRIPTION                 105
 
 // Next default values for new objects

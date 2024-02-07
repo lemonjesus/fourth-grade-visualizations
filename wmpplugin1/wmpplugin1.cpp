@@ -142,8 +142,11 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
         break;
 
     case PRESET_THEWAVE:
-        bstrTemp.LoadString(IDS_PRESETNAME1); 
+        bstrTemp.LoadString(IDS_PRESETNAME1);
         break;
+
+	case PRESET_DEFAULT:
+		bstrTemp.LoadString(IDS_PRESETNAME_DEFAULT);
     }
     
     if ((!bstrTemp) || (0 == bstrTemp.Length())) return E_FAIL;
@@ -177,6 +180,8 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 			currentPreset = new VizTheBar();
 			break;
 		case PRESET_THEWAVE:
+			currentPreset = new VizTheWave();
+			break;
 		default:
 			currentPreset = new VizDefault();
 	}
