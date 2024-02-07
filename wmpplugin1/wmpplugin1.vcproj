@@ -144,6 +144,7 @@
 				Name="VCLinkerTool"
 				RegisterOutput="true"
 				PerUserRedirection="false"
+				AdditionalOptions="/FORCE:MULTIPLE"
 				LinkDLL="true"
 				ModuleDefinitionFile="wmpplugin1.def"
 				GenerateDebugInformation="true"
@@ -382,6 +383,18 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Visualization.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\VizDefault.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\VizTheBar.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\wmpplugin1.cpp"
 				>
 			</File>
@@ -417,6 +430,22 @@
 			</File>
 			<File
 				RelativePath=".\StdAfx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Visualization.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizDefault.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizPresets.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizTheBar.h"
 				>
 			</File>
 			<File

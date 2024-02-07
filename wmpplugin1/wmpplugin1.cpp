@@ -8,7 +8,6 @@
 
 #include "stdafx.h"
 #include "wmpplugin1.h"
-#include "color_util.h"
 
 #define INTERNAL_WIDTH 690
 #define INTERNAL_HEIGHT 420
@@ -16,7 +15,8 @@
 // Constructor
 CWmpplugin1::CWmpplugin1() :
 m_nPreset(0),
-frame(0)
+frame(0),
+currentPreset(NULL)
 {}
 
 // Destructor
@@ -40,19 +40,11 @@ HRESULT CWmpplugin1::FinalConstruct() {
 		D2D1_FEATURE_LEVEL_DEFAULT
     );
 	m_pD2DFactory->CreateDCRenderTarget(&props, &m_pDCRT);
-	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 1.0f),&m_pBrush);
-	m_pDCRT->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 0.1f),&m_pBlackBrush);
 	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bitmapTarget);
 	m_pDCRT->CreateCompatibleRenderTarget(D2D1::SizeF(INTERNAL_WIDTH,INTERNAL_HEIGHT), &bgEffectTarget);
 	bitmapTarget->QueryInterface(&m_d2dContext);
 	bitmapTarget->GetBitmap(&bitmap);
 	bgEffectTarget->GetBitmap(&bgEffectBitmap);
-
-	// define the D2D effects we'll be using
-	m_d2dContext->CreateEffect(CLSID_D2D1GaussianBlur, &blur);
-	m_d2dContext->CreateEffect(CLSID_D2D1DisplacementMap, &displacement);
-	m_d2dContext->CreateEffect(CLSID_D2D1Turbulence, &turbulence);
-
 	return S_OK;
 }
 
@@ -60,13 +52,8 @@ HRESULT CWmpplugin1::FinalConstruct() {
 // Called when an effect is unloaded. Use this function to free any
 // resources allocated in FinalConstruct.
 void CWmpplugin1::FinalRelease() {
-	SafeRelease(&m_pBrush);
-	SafeRelease(&m_pBlackBrush);
 	SafeRelease(&bitmapTarget);
 	SafeRelease(&bgEffectTarget);
-	SafeRelease(&blur);
-	SafeRelease(&displacement);
-	SafeRelease(&turbulence);
 	SafeRelease(&bitmap);
 	SafeRelease(&bgEffectBitmap);
 	SafeRelease(&m_pDCRT);
@@ -83,59 +70,7 @@ STDMETHODIMP CWmpplugin1::Render(TimedLevel *pLevels, HDC hdc, RECT *prc) {
 
 	frame++;
 
-	HsvColor hsv;
-	hsv.h = frame%255;
-	hsv.s = 255;
-	hsv.v = 255;
-
-	RgbColor rgb = HsvToRgb(hsv);
-	m_pBrush->SetColor(D2D1::ColorF(rgb.r/255.0f, rgb.g/255.0f, rgb.b/255.0f));
-	
-	// background effects here
-	bgEffectTarget->BeginDraw();
-	bgEffectTarget->DrawBitmap(bitmap, rectf);
-	bgEffectTarget->EndDraw();
-
-	m_d2dContext->BeginDraw();
-	m_d2dContext->Clear();
-	turbulence->SetValue(D2D1_TURBULENCE_PROP_SIZE, D2D1::Vector2F(sizef.width, sizef.height));
-	turbulence->SetValue(D2D1_TURBULENCE_PROP_SEED, ((unsigned int)frame)/100);
-	displacement->SetInput(0, bgEffectBitmap);
-	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, (float)PropertyPage::displacementAmount);
-	displacement->SetInputEffect(1, turbulence);
-	ID2D1Image *output = NULL;
-    displacement->GetOutput(&output);
-	blur->SetInput(0, output);
-	blur->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, 1.0f);
-	m_d2dContext->DrawImage(blur);
-	output->Release();
-
-	// fade out the background a bit
-	m_d2dContext->FillRectangle(rectf, m_pBlackBrush);
-
-	// foreground redraws here
-    switch (m_nPreset) {
-	case PRESET_BARS:
-        // Walk through the frequencies until we run out of levels or drawing surface.
-        for (int x = (int)rectf.left; x < (int)rectf.right && x < (SA_BUFFER_SIZE-1); ++x) {
-            int y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->frequency[0][x - ((int)rectf.left - 1)]);
-			m_d2dContext->DrawLine(D2D1::Point2F((float)x, rectf.bottom), D2D1::Point2F((float)x, (float)y), m_pBrush);
-        }
-		break;
-
-    case PRESET_SCOPE:
-        // Walk through the waveform data until we run out of samples or drawing surface.
-        int y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->waveform[0][0]);
-		int prevx = 0, prevy = y;
-        for (int x = (int)rectf.left; x < (int)rectf.right && x < (SA_BUFFER_SIZE-1); ++x) {
-            y = static_cast<int>(((rectf.bottom - rectf.top)/256.0f) * pLevels->waveform[0][x - ((int)rectf.left - 1)]);
-			m_d2dContext->DrawLine(D2D1::Point2F((float)prevx, (float)prevy), D2D1::Point2F((float)x, (float)y), m_pBrush);
-			prevx = x;
-			prevy = y;
-        }
-		break;
-    }
-	m_d2dContext->EndDraw();
+	if(currentPreset != NULL) currentPreset->render(frame, rectf, bgEffectTarget, bgEffectBitmap, bitmap, m_d2dContext, pLevels);
 
 	HDC intermediateHDC = CreateCompatibleDC(hdc);
 	HBITMAP intermediateBitmap = CreateCompatibleBitmap(hdc, INTERNAL_WIDTH, INTERNAL_HEIGHT);
@@ -202,12 +137,12 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
     CComBSTR bstrTemp;
     
     switch (nPreset) {
-    case PRESET_BARS:
-        bstrTemp.LoadString(IDS_BARSPRESETNAME); 
+    case PRESET_THEBAR:
+        bstrTemp.LoadString(IDS_PRESETNAME0); 
         break;
 
-    case PRESET_SCOPE:
-        bstrTemp.LoadString(IDS_SCOPEPRESETNAME); 
+    case PRESET_THEWAVE:
+        bstrTemp.LoadString(IDS_PRESETNAME1); 
         break;
     }
     
@@ -233,7 +168,20 @@ STDMETHODIMP CWmpplugin1::GetPresetCount(LONG *pnPresetCount) {
 STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
     if ((nPreset < 0) || (nPreset >= PRESET_COUNT)) return E_INVALIDARG;
 
-    m_nPreset = nPreset;
+	if(currentPreset != NULL) delete currentPreset;
+
+	m_nPreset = nPreset;
+
+	switch(nPreset) {
+		case PRESET_THEBAR:
+			currentPreset = new VizTheBar();
+			break;
+		case PRESET_THEWAVE:
+		default:
+			currentPreset = new VizDefault();
+	}
+
+	currentPreset->init(m_d2dContext);
 
     return S_OK;
 }

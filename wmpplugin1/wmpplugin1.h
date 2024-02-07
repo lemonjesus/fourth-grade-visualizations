@@ -13,6 +13,8 @@
 #include "effects.h"
 #include "wmpplugin1_h.h"
 #include "PropertyPage.h"
+#include "Visualization.h"
+#include "VizPresets.h"
 
 #include <d2d1.h>
 #include <d2d1_1.h>
@@ -49,8 +51,8 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
 // preset values
 enum {
-    PRESET_BARS = 0,
-    PRESET_SCOPE,
+    PRESET_THEBAR = 0,
+    PRESET_THEWAVE,
     PRESET_COUNT
 };
 
@@ -73,13 +75,13 @@ private:
 	ID2D1Factory* m_pD2DFactory;
 	ID2D1DeviceContext* m_d2dContext;
 	ID2D1DCRenderTarget* m_pDCRT;
-	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush;
 
 	ID2D1BitmapRenderTarget *bitmapTarget;
 	ID2D1BitmapRenderTarget *bgEffectTarget;
-	ID2D1Effect *blur, *displacement, *turbulence;
 	ID2D1Bitmap *bitmap;
 	ID2D1Bitmap *bgEffectBitmap;
+
+	Visualization* currentPreset;
 
 	PropertyPage propPage;
 public:

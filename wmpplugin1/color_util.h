@@ -1,5 +1,4 @@
-#ifndef COLOR_UTIL_H
-#define COLOR_UTIL_H
+#pragma once
 
 typedef struct RgbColor {
     unsigned char r;
@@ -84,5 +83,3 @@ HsvColor RgbToHsv(RgbColor rgb) {
 
     return hsv;
 }
-
-#endif

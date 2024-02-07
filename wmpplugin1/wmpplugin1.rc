@@ -1,8 +1,5 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
-//Copyright (c) Microsoft Corporation. All rights reserved.
-//
-
 #include "resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
@@ -30,18 +27,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""winres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "1 TYPELIB ""wmpplugin1.tlb""\r\n"
     "\0"
@@ -50,7 +47,6 @@ END
 #endif    // APSTUDIO_INVOKED
 
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -73,15 +69,14 @@ BEGIN
     BEGIN
         BLOCK "040904B0"
         BEGIN
-            VALUE "CompanyName", "Wmpplugin1\0"
-            VALUE "FileDescription", "Wmpplugin1 Module\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
-            VALUE "InternalName", "Wmpplugin1\0"
-            VALUE "LegalCopyright", "Copyright \251 2001-2001\0"
-            VALUE "OriginalFilename", "wmpplugin1.dll\0"
-            VALUE "ProductName", "Wmpplugin1 Module\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
-            VALUE "OLESelfRegister", "\0"
+            VALUE "CompanyName", "Wmpplugin1"
+            VALUE "FileDescription", "Wmpplugin1 Module"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "Wmpplugin1"
+            VALUE "LegalCopyright", "Copyright © 2001-2001"
+            VALUE "OriginalFilename", "wmpplugin1.dll"
+            VALUE "ProductName", "Wmpplugin1 Module"
+            VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END
     BLOCK "VarFileInfo"
@@ -90,27 +85,26 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // REGISTRY
 //
 
-IDR_WMPPLUGIN1           REGISTRY DISCARDABLE    "wmpplugin1.rgs"
+IDR_WMPPLUGIN1          REGISTRY                "wmpplugin1.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_PROJNAME            "wmpplugin1"
     IDS_EFFECTNAME          "My First Visualization"
-    IDS_BARSPRESETNAME      "My First Visualization Bars"
-    IDS_SCOPEPRESETNAME     "My First Visualization Wave"
+    IDS_PRESETNAME0         "The Bar"
+    IDS_PRESETNAME_SPARE    "Wave Scope"
+    IDS_PRESETNAME2         "The Wave"
     IDS_DESCRIPTION         "I can't believe it's going to work the first time!"
 END
 
