@@ -391,6 +391,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizSquares.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizTheBar.cpp"
 				>
 			</File>
@@ -446,6 +450,10 @@
 			</File>
 			<File
 				RelativePath=".\VizPresets.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizSquares.h"
 				>
 			</File>
 			<File

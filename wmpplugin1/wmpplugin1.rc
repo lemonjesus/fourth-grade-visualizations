@@ -102,10 +102,11 @@ STRINGTABLE
 BEGIN
     IDS_PROJNAME            "wmpplugin1"
     IDS_EFFECTNAME          "My First Visualization"
-    IDS_PRESETNAME0         "The Bar"
-    IDS_PRESETNAME_DEFAULT  "Learning Exercise"
-    IDS_PRESETNAME1         "The Wave"
+    IDS_NAME_THEBAR         "The Bar"
+    IDS_NAME_DEFAULT        "Learning Exercise"
+    IDS_NAME_THEWAVE        "The Wave"
     IDS_DESCRIPTION         "I can't believe it's going to work the first time!"
+    IDS_NAME_SQUARES        "Squares"
 END
 
 #endif    // English (U.S.) resources

@@ -138,15 +138,19 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
     
     switch (nPreset) {
     case PRESET_THEBAR:
-        bstrTemp.LoadString(IDS_PRESETNAME0); 
+        bstrTemp.LoadString(IDS_NAME_THEBAR); 
         break;
 
     case PRESET_THEWAVE:
-        bstrTemp.LoadString(IDS_PRESETNAME1);
+        bstrTemp.LoadString(IDS_NAME_THEWAVE);
         break;
 
+	case PRESET_SQUARES:
+		bstrTemp.LoadString(IDS_NAME_SQUARES);
+		break;
+
 	case PRESET_DEFAULT:
-		bstrTemp.LoadString(IDS_PRESETNAME_DEFAULT);
+		bstrTemp.LoadString(IDS_NAME_DEFAULT);
     }
     
     if ((!bstrTemp) || (0 == bstrTemp.Length())) return E_FAIL;
@@ -181,6 +185,9 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 			break;
 		case PRESET_THEWAVE:
 			currentPreset = new VizTheWave();
+			break;
+		case PRESET_SQUARES:
+			currentPreset = new VizSquares;
 			break;
 		default:
 			currentPreset = new VizDefault();
