@@ -107,6 +107,7 @@ BEGIN
     IDS_NAME_THEWAVE        "The Wave"
     IDS_DESCRIPTION         "I can't believe it's going to work the first time!"
     IDS_NAME_SQUARES        "Squares"
+    IDS_NAME_THEMAN         "The Man"
 END
 
 #endif    // English (U.S.) resources

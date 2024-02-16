@@ -145,6 +145,10 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
         bstrTemp.LoadString(IDS_NAME_THEWAVE);
         break;
 
+	case PRESET_THEMAN:
+		bstrTemp.LoadString(IDS_NAME_THEMAN);
+		break;
+
 	case PRESET_SQUARES:
 		bstrTemp.LoadString(IDS_NAME_SQUARES);
 		break;
@@ -185,6 +189,9 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 			break;
 		case PRESET_THEWAVE:
 			currentPreset = new VizTheWave();
+			break;
+		case PRESET_THEMAN:
+			currentPreset = new VizTheMan();
 			break;
 		case PRESET_SQUARES:
 			currentPreset = new VizSquares;

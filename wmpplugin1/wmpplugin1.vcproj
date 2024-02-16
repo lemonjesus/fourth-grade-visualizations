@@ -399,6 +399,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizTheMan.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizTheWave.cpp"
 				>
 			</File>
@@ -458,6 +462,10 @@
 			</File>
 			<File
 				RelativePath=".\VizTheBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizTheMan.h"
 				>
 			</File>
 			<File
