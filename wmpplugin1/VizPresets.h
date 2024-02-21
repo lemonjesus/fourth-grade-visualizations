@@ -6,6 +6,7 @@
 #include "VizTheMan.h"
 #include "VizWormhole.h"
 #include "VizWaveHoles.h"
+#include "VizCrevice.h"
 #include "VizPlane.h"
 #include "VizMix.h"
 #include "VizSquares.h"
@@ -18,6 +19,7 @@ enum {
 	PRESET_THEMAN,
 	PRESET_WORMHOLE,
 	PRESET_WAVEHOLES,
+	PRESET_CREVICE,
 	PRESET_PLANE,
 	PRESET_MIX,
 	PRESET_SQUARES,

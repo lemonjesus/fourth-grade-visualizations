@@ -95,6 +95,14 @@ IDR_WMPPLUGIN1          REGISTRY                "wmpplugin1.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// RCDATA
+//
+
+IDB_PNG1                RCDATA                  "Crevice Vector Field.png"
+IDB_PNG2                RCDATA                  "Crevice Mask.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
@@ -112,6 +120,11 @@ BEGIN
     IDS_NAME_MIX            "Mix"
     IDS_NAME_WAVEHOLES      "Wave Holes"
     IDS_NAME_PLANE          "Plane"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_NAME_CREVICE        "Crevice"
 END
 
 #endif    // English (U.S.) resources

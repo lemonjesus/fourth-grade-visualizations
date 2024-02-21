@@ -157,6 +157,10 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
 		bstrTemp.LoadString(IDS_NAME_WAVEHOLES);
 		break;
 
+	case PRESET_CREVICE:
+		bstrTemp.LoadString(IDS_NAME_CREVICE);
+		break;
+
 	case PRESET_PLANE:
 		bstrTemp.LoadString(IDS_NAME_PLANE);
 		break;
@@ -214,6 +218,9 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 			break;
 		case PRESET_WAVEHOLES:
 			currentPreset = new VizWaveHoles();
+			break;
+		case PRESET_CREVICE:
+			currentPreset = new VizCrevice();
 			break;
 		case PRESET_PLANE:
 			currentPreset = new VizPlane();

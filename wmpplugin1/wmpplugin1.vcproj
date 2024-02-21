@@ -387,6 +387,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizCrevice.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizDefault.cpp"
 				>
 			</File>
@@ -465,6 +469,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizCrevice.h"
+				>
+			</File>
+			<File
 				RelativePath=".\VizDefault.h"
 				>
 			</File>
@@ -514,6 +522,14 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\Crevice Mask.png"
+				>
+			</File>
+			<File
+				RelativePath=".\Crevice Vector Field.png"
+				>
+			</File>
 			<File
 				RelativePath=".\wmpplugin1.rc"
 				>
