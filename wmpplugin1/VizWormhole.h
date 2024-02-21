@@ -4,7 +4,8 @@
 class VizWormhole : public Visualization {
 public:
 	ID2D1Effect *affine;
-	ID2D1SolidColorBrush *m_pBrush;
+	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush;
+	unsigned char prev_volume;
 
 	VizWormhole(void);
 	~VizWormhole(void);
