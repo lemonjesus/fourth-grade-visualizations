@@ -110,6 +110,7 @@ BEGIN
     IDS_NAME_THEMAN         "The Man"
     IDS_NAME_WORMHOLE       "Wormhole"
     IDS_NAME_MIX            "Mix"
+    IDS_NAME_WAVEHOLES      "Wave Holes"
 END
 
 #endif    // English (U.S.) resources

@@ -153,6 +153,10 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
 		bstrTemp.LoadString(IDS_NAME_WORMHOLE);
 		break;
 
+	case PRESET_WAVEHOLES:
+		bstrTemp.LoadString(IDS_NAME_WAVEHOLES);
+		break;
+
 	case PRESET_SQUARES:
 		bstrTemp.LoadString(IDS_NAME_SQUARES);
 		break;
@@ -203,6 +207,9 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 			break;
 		case PRESET_WORMHOLE:
 			currentPreset = new VizWormhole();
+			break;
+		case PRESET_WAVEHOLES:
+			currentPreset = new VizWaveHoles();
 			break;
 		case PRESET_SQUARES:
 			currentPreset = new VizSquares();

@@ -15,6 +15,7 @@
 #define IDS_NAME_THEMAN                 107
 #define IDS_NAME_WORMHOLE               108
 #define IDS_NAME_MIX                    109
+#define IDS_NAME_WAVEHOLES              110
 
 // Next default values for new objects
 // 
