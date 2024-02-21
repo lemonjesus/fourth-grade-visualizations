@@ -111,6 +111,7 @@ BEGIN
     IDS_NAME_WORMHOLE       "Wormhole"
     IDS_NAME_MIX            "Mix"
     IDS_NAME_WAVEHOLES      "Wave Holes"
+    IDS_NAME_PLANE          "Plane"
 END
 
 #endif    // English (U.S.) resources

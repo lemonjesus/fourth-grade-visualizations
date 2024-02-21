@@ -16,6 +16,7 @@
 #define IDS_NAME_WORMHOLE               108
 #define IDS_NAME_MIX                    109
 #define IDS_NAME_WAVEHOLES              110
+#define IDS_NAME_PLANE                  111
 
 // Next default values for new objects
 // 

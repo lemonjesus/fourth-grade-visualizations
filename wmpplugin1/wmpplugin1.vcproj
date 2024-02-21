@@ -395,6 +395,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizPlane.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizSquares.cpp"
 				>
 			</File>
@@ -466,6 +470,10 @@
 			</File>
 			<File
 				RelativePath=".\VizMix.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizPlane.h"
 				>
 			</File>
 			<File
