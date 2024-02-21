@@ -13,6 +13,8 @@
 #define IDS_DESCRIPTION                 105
 #define IDS_NAME_SQUARES                106
 #define IDS_NAME_THEMAN                 107
+#define IDS_NAME_WORMHOLE               108
+#define IDS_NAME_MIX                    109
 
 // Next default values for new objects
 // 

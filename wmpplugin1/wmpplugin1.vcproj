@@ -391,6 +391,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizMix.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizSquares.cpp"
 				>
 			</File>
@@ -404,6 +408,10 @@
 			</File>
 			<File
 				RelativePath=".\VizTheWave.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\VizWormhole.cpp"
 				>
 			</File>
 			<File
@@ -453,6 +461,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizMix.h"
+				>
+			</File>
+			<File
 				RelativePath=".\VizPresets.h"
 				>
 			</File>
@@ -470,6 +482,10 @@
 			</File>
 			<File
 				RelativePath=".\VizTheWave.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizWormhole.h"
 				>
 			</File>
 			<File

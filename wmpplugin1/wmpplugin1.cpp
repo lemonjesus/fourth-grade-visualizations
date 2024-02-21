@@ -149,8 +149,16 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
 		bstrTemp.LoadString(IDS_NAME_THEMAN);
 		break;
 
+	case PRESET_WORMHOLE:
+		bstrTemp.LoadString(IDS_NAME_WORMHOLE);
+		break;
+
 	case PRESET_SQUARES:
 		bstrTemp.LoadString(IDS_NAME_SQUARES);
+		break;
+	
+	case PRESET_MIX:
+		bstrTemp.LoadString(IDS_NAME_MIX);
 		break;
 
 	case PRESET_DEFAULT:
@@ -193,8 +201,14 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 		case PRESET_THEMAN:
 			currentPreset = new VizTheMan();
 			break;
+		case PRESET_WORMHOLE:
+			currentPreset = new VizWormhole();
+			break;
 		case PRESET_SQUARES:
-			currentPreset = new VizSquares;
+			currentPreset = new VizSquares();
+			break;
+		case PRESET_MIX:
+			currentPreset = new VizMix();
 			break;
 		default:
 			currentPreset = new VizDefault();

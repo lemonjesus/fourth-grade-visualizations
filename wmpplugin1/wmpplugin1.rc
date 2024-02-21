@@ -108,6 +108,8 @@ BEGIN
     IDS_DESCRIPTION         "I can't believe it's going to work the first time!"
     IDS_NAME_SQUARES        "Squares"
     IDS_NAME_THEMAN         "The Man"
+    IDS_NAME_WORMHOLE       "Wormhole"
+    IDS_NAME_MIX            "Mix"
 END
 
 #endif    // English (U.S.) resources
