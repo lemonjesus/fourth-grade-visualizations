@@ -101,6 +101,7 @@ IDR_WMPPLUGIN1          REGISTRY                "wmpplugin1.rgs"
 IDB_PNG1                RCDATA                  "Crevice Vector Field.png"
 IDB_PNG2                RCDATA                  "Crevice Mask.png"
 IDB_PNG3                RCDATA                  "Pod.png"
+IDB_PNG4                RCDATA                  "Electrode Scene.png"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -128,6 +129,7 @@ BEGIN
     IDS_NAME_CREVICE        "Crevice"
     IDS_NAME_WAVESPECTRUM   "Wave Spectrum"
     IDS_NAME_PODS           "Pods"
+    IDS_NAME_ELECTRODE      "Electrode"
 END
 
 #endif    // English (U.S.) resources

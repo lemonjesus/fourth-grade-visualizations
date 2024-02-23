@@ -12,6 +12,7 @@
 #include "VizSquares.h"
 #include "VizWaveSpectrum.h"
 #include "VizPods.h"
+#include "VizElectrode.h"
 #include "VizDefault.h"
 
 // preset values
@@ -27,6 +28,7 @@ enum {
 	PRESET_SQUARES,
 	PRESET_WAVESPECTRUM,
 	PRESET_PODS,
+	PRESET_ELECTRODE,
 	PRESET_DEFAULT,
     PRESET_COUNT
 };

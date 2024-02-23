@@ -395,6 +395,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizElectrode.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizMix.cpp"
 				>
 			</File>
@@ -489,6 +493,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizElectrode.h"
+				>
+			</File>
+			<File
 				RelativePath=".\VizMix.h"
 				>
 			</File>
@@ -548,6 +556,10 @@
 			</File>
 			<File
 				RelativePath=".\Crevice Vector Field.png"
+				>
+			</File>
+			<File
+				RelativePath=".\Electrode Scene.png"
 				>
 			</File>
 			<File
