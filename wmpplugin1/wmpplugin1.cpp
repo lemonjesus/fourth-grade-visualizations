@@ -173,6 +173,10 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
 		bstrTemp.LoadString(IDS_NAME_SQUARES);
 		break;
 
+	case PRESET_WAVESPECTRUM:
+		bstrTemp.LoadString(IDS_NAME_WAVESPECTRUM);
+		break;
+
 	case PRESET_DEFAULT:
 		bstrTemp.LoadString(IDS_NAME_DEFAULT);
     }
@@ -230,6 +234,9 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 			break;
 		case PRESET_SQUARES:
 			currentPreset = new VizSquares();
+			break;
+		case PRESET_WAVESPECTRUM:
+			currentPreset = new VizWaveSpectrum();
 			break;
 		default:
 			currentPreset = new VizDefault();

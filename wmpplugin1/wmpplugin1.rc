@@ -125,6 +125,7 @@ END
 STRINGTABLE 
 BEGIN
     IDS_NAME_CREVICE        "Crevice"
+    IDS_NAME_WAVESPECTRUM   "Wave Spectrum"
 END
 
 #endif    // English (U.S.) resources

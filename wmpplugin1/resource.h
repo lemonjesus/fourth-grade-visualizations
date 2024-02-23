@@ -18,6 +18,7 @@
 #define IDS_NAME_WAVEHOLES              110
 #define IDS_NAME_PLANE                  111
 #define IDS_NAME_CREVICE                112
+#define IDS_NAME_WAVESPECTRUM           113
 #define IDB_PNG1                        210
 #define IDB_PNG2                        211
 
