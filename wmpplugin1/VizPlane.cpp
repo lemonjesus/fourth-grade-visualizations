@@ -95,7 +95,7 @@ void VizPlane::render(
 		phi = ((float)i/1024.0f)*(M_PI*2);
 		radius = 10 + ((short)pLevels->waveform[0][i] + (short)pLevels->waveform[1][i]) / 12;
 		next_phi = ((float)(i+1)/1024.0f)*(M_PI*2);
-		if(i == 1023) 10 + ((short)pLevels->waveform[0][0] + (short)pLevels->waveform[1][0]) / 12;
+		if(i == 1023) next_radius = 10 + ((short)pLevels->waveform[0][0] + (short)pLevels->waveform[1][0]) / 12;
 		else next_radius = 10 + ((short)pLevels->waveform[0][i+1] + (short)pLevels->waveform[1][i+1]) / 12;
 
 		m_d2dContext->DrawLine(

@@ -189,6 +189,10 @@ STDMETHODIMP CWmpplugin1::GetPresetTitle(LONG nPreset, BSTR *bstrPresetTitle) {
 		bstrTemp.LoadString(IDS_NAME_WORM);
 		break;
 
+	case PRESET_RIPPLES:
+		bstrTemp.LoadString(IDS_NAME_RIPPLES);
+		break;
+
 	case PRESET_DEFAULT:
 		bstrTemp.LoadString(IDS_NAME_DEFAULT);
     }
@@ -258,6 +262,9 @@ STDMETHODIMP CWmpplugin1::SetCurrentPreset(LONG nPreset) {
 			break;
 		case PRESET_WORM:
 			currentPreset = new VizWorm();
+			break;
+		case PRESET_RIPPLES:
+			currentPreset = new VizRipples();
 			break;
 		default:
 			currentPreset = new VizDefault();

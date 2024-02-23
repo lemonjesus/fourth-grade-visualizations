@@ -411,6 +411,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizRipples.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizSquares.cpp"
 				>
 			</File>
@@ -514,6 +518,10 @@
 			</File>
 			<File
 				RelativePath=".\VizPresets.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizRipples.h"
 				>
 			</File>
 			<File

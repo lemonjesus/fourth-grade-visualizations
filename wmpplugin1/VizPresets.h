@@ -14,6 +14,7 @@
 #include "VizPods.h"
 #include "VizElectrode.h"
 #include "VizWorm.h"
+#include "VizRipples.h"
 #include "VizDefault.h"
 
 // preset values
@@ -31,6 +32,7 @@ enum {
 	PRESET_PODS,
 	PRESET_ELECTRODE,
 	PRESET_WORM,
+	PRESET_RIPPLES,
 	PRESET_DEFAULT,
     PRESET_COUNT
 };

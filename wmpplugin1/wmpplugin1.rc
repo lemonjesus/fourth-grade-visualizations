@@ -132,6 +132,7 @@ BEGIN
     IDS_NAME_PODS           "Pods"
     IDS_NAME_ELECTRODE      "Electrode"
     IDS_NAME_WORM           "Worm"
+    IDS_NAME_RIPPLES        "Ripples"
 END
 
 #endif    // English (U.S.) resources
