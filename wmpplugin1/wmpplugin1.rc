@@ -112,11 +112,11 @@ IDB_PNG5                RCDATA                  "Worm Head.png"
 STRINGTABLE 
 BEGIN
     IDS_PROJNAME            "wmpplugin1"
-    IDS_EFFECTNAME          "My First Visualization"
+    IDS_EFFECTNAME          "Tucker's 4th Grade Visualizations"
     IDS_NAME_THEBAR         "The Bar"
     IDS_NAME_DEFAULT        "Learning Exercise"
     IDS_NAME_THEWAVE        "The Wave"
-    IDS_DESCRIPTION         "I can't believe it's going to work the first time!"
+    IDS_DESCRIPTION         "Some visualizations I drew in 4th grade finally have come to life in an abandoned media player. Better late than never!"
     IDS_NAME_SQUARES        "Squares"
     IDS_NAME_THEMAN         "The Man"
     IDS_NAME_WORMHOLE       "Wormhole"
@@ -133,6 +133,7 @@ BEGIN
     IDS_NAME_ELECTRODE      "Electrode"
     IDS_NAME_WORM           "Worm"
     IDS_NAME_RIPPLES        "Ripples"
+    IDS_NAME_WALKWAY        "Walk Way"
 END
 
 #endif    // English (U.S.) resources

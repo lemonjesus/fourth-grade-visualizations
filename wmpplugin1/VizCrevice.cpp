@@ -64,19 +64,19 @@ void VizCrevice::render(
 	m_d2dContext->DrawBitmap(ppMask, rectf);
 
 	// Walk through the waveform data until we run out of samples or drawing surface.
-    int y = static_cast<int>(((rectf.top + 80)/256.0f) * pLevels->waveform[0][0] * 2);
+    int y = static_cast<int>(rectf.top + pLevels->waveform[0][0] / 2);
 	int prevx = 0, prevy = y;
     for (int x = (int)rectf.left; x < (int)rectf.right && x < (SA_BUFFER_SIZE-1); ++x) {
-        y = static_cast<int>(((rectf.top + 80)/256.0f) * pLevels->waveform[0][x - ((int)rectf.left - 1)]) * 2;
+        y = static_cast<int>(rectf.top + pLevels->waveform[0][x - ((int)rectf.left - 1)] / 2);
 		m_d2dContext->DrawLine(D2D1::Point2F((float)prevx, (float)prevy), D2D1::Point2F((float)x, (float)y), m_pBrush);
 		prevx = x;
 		prevy = y;
     }
 
-	y = static_cast<int>(((rectf.bottom - 80)/256.0f) * pLevels->waveform[0][0] * 2);
+	y = static_cast<int>(rectf.bottom - 120 + pLevels->waveform[0][0] / 2);
 	prevx = 0, prevy = y;
     for (int x = (int)rectf.left; x < (int)rectf.right && x < (SA_BUFFER_SIZE-1); ++x) {
-        y = static_cast<int>(((rectf.bottom - 80)/256.0f) * pLevels->waveform[0][x - ((int)rectf.left - 1)]) * 2;
+        y = static_cast<int>(rectf.bottom - 120 + pLevels->waveform[0][x - ((int)rectf.left - 1)] / 2);
 		m_d2dContext->DrawLine(D2D1::Point2F((float)prevx, (float)prevy), D2D1::Point2F((float)x, (float)y), m_pBrush);
 		prevx = x;
 		prevy = y;

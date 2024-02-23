@@ -15,6 +15,7 @@
 #include "VizElectrode.h"
 #include "VizWorm.h"
 #include "VizRipples.h"
+#include "VizWalkway.h"
 #include "VizDefault.h"
 
 // preset values
@@ -33,6 +34,7 @@ enum {
 	PRESET_ELECTRODE,
 	PRESET_WORM,
 	PRESET_RIPPLES,
+	PRESET_WALKWAY,
 	PRESET_DEFAULT,
     PRESET_COUNT
 };

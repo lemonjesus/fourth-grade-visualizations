@@ -83,6 +83,7 @@ void VizTheMan::init(ID2D1DeviceContext* m_d2dContext) {
 	for(int i = 0; i < MEN_COUNT; i++) {
 		((Man**)men)[i] = new Man();
 	}
+	firstrun = true;
 }
 
 void VizTheMan::render(
@@ -113,8 +114,13 @@ void VizTheMan::render(
 	m_d2dContext->Flush();
 
 	bgEffectTarget->BeginDraw();
-	displacedrect = D2D1::RectF(rectf.left + 3, rectf.top - 1, rectf.right + 3, rectf.bottom - 1);
-	bgEffectTarget->DrawBitmap(bitmap, &displacedrect);
+	if(firstrun) {
+		bgEffectTarget->FillRectangle(rectf, m_pWhiteBrush);
+		firstrun = false;
+	} else {
+		displacedrect = D2D1::RectF(rectf.left + 3, rectf.top - 1, rectf.right + 3, rectf.bottom - 1);
+		bgEffectTarget->DrawBitmap(bitmap, &displacedrect);
+	}	
 	bgEffectTarget->EndDraw();
 
 	// m_d2dContext->DrawBitmap(bgEffectBitmap);

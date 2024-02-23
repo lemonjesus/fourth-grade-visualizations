@@ -25,8 +25,6 @@
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "dxguid.lib")
 
-#define _WIN32_WINNT 0x0601
-
 template<class Interface>
 inline void SafeRelease(
     Interface **ppInterfaceToRelease)

@@ -23,6 +23,7 @@
 #define IDS_NAME_ELECTRODE              115
 #define IDS_NAME_WORM                   116
 #define IDS_NAME_RIPPLES                117
+#define IDS_NAME_WALKWAY                118
 #define IDB_PNG1                        210
 #define IDB_PNG2                        211
 #define IDB_PNG3                        213

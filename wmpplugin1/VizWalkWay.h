@@ -1,16 +1,13 @@
 #pragma once
 #include "Visualization.h"
 
-class VizTheMan : public Visualization {
+class VizWalkWay : public Visualization {
 public:
-	ID2D1Effect *blur;
-	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush, *m_pWhiteBrush;
-	D2D1_RECT_F displacedrect;
-	void* men;
-	bool firstrun;
+	ID2D1Effect *affine;
+	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush;
 
-	VizTheMan(void);
-	~VizTheMan(void);
+	VizWalkWay(void);
+	~VizWalkWay(void);
 
 	void init(ID2D1DeviceContext* m_d2dContext);
 	void render(

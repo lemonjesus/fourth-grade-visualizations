@@ -431,6 +431,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizWalkWay.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizWaveHoles.cpp"
 				>
 			</File>
@@ -538,6 +542,10 @@
 			</File>
 			<File
 				RelativePath=".\VizTheWave.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizWalkWay.h"
 				>
 			</File>
 			<File
