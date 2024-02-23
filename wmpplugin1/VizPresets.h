@@ -11,6 +11,7 @@
 #include "VizMix.h"
 #include "VizSquares.h"
 #include "VizWaveSpectrum.h"
+#include "VizPods.h"
 #include "VizDefault.h"
 
 // preset values
@@ -25,6 +26,7 @@ enum {
 	PRESET_MIX,
 	PRESET_SQUARES,
 	PRESET_WAVESPECTRUM,
+	PRESET_PODS,
 	PRESET_DEFAULT,
     PRESET_COUNT
 };

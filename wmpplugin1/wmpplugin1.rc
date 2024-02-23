@@ -100,6 +100,7 @@ IDR_WMPPLUGIN1          REGISTRY                "wmpplugin1.rgs"
 
 IDB_PNG1                RCDATA                  "Crevice Vector Field.png"
 IDB_PNG2                RCDATA                  "Crevice Mask.png"
+IDB_PNG3                RCDATA                  "Pod.png"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -126,6 +127,7 @@ STRINGTABLE
 BEGIN
     IDS_NAME_CREVICE        "Crevice"
     IDS_NAME_WAVESPECTRUM   "Wave Spectrum"
+    IDS_NAME_PODS           "Pods"
 END
 
 #endif    // English (U.S.) resources

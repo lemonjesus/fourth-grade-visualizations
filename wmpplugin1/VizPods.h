@@ -1,14 +1,12 @@
 #pragma once
 #include "Visualization.h"
 
-class VizCrevice : public Visualization {
+class VizPods : public Visualization {
 public:
-	ID2D1Effect *displacement;
-	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush;
-	ID2D1Bitmap *ppBitmap, *ppMask;
+	ID2D1Bitmap *pPodBitmap;
 
-	VizCrevice(void);
-	~VizCrevice(void);
+	VizPods(void);
+	~VizPods(void);
 
 	void init(ID2D1DeviceContext* m_d2dContext);
 	void render(

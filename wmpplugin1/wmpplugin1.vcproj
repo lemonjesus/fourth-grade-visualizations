@@ -403,6 +403,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizPods.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizSquares.cpp"
 				>
 			</File>
@@ -457,6 +461,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\image_loader.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PropertyPage.h"
 				>
 			</File>
@@ -486,6 +494,10 @@
 			</File>
 			<File
 				RelativePath=".\VizPlane.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VizPods.h"
 				>
 			</File>
 			<File
@@ -536,6 +548,10 @@
 			</File>
 			<File
 				RelativePath=".\Crevice Vector Field.png"
+				>
+			</File>
+			<File
+				RelativePath=".\Pod.png"
 				>
 			</File>
 			<File
