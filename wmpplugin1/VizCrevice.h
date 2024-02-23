@@ -3,7 +3,7 @@
 
 class VizCrevice : public Visualization {
 public:
-	ID2D1Effect *affine;
+	ID2D1Effect *displacement;
 	ID2D1SolidColorBrush *m_pBrush, *m_pBlackBrush;
 	ID2D1Bitmap *ppBitmap, *ppMask;
 

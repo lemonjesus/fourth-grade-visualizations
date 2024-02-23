@@ -8,13 +8,13 @@
 VizCrevice::VizCrevice() {}
 
 VizCrevice::~VizCrevice() {
-	SafeRelease(&affine);
+	SafeRelease(&displacement);
 	SafeRelease(&m_pBrush);
 	SafeRelease(&m_pBlackBrush);
 }
 
 void VizCrevice::init(ID2D1DeviceContext* m_d2dContext) {
-	m_d2dContext->CreateEffect(CLSID_D2D12DAffineTransform, &affine);
+	m_d2dContext->CreateEffect(CLSID_D2D1DisplacementMap, &displacement);
 	m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 1.0f),&m_pBrush);
 	m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(0, 0, 0, 0.02f),&m_pBlackBrush);
 
@@ -53,11 +53,33 @@ void VizCrevice::render(
 
 	m_d2dContext->BeginDraw();
 	m_d2dContext->Clear();
-	affine->SetInput(0, bgEffectBitmap);
-	affine->SetValue(D2D1_2DAFFINETRANSFORM_PROP_TRANSFORM_MATRIX, D2D1::Matrix3x2F::Scale(0.995f, 0.995f, D2D1::Point2F((rectf.right - rectf.left)/2, (rectf.bottom - rectf.top)/2)));
-	m_d2dContext->DrawImage(affine);
+	displacement->SetInput(0, bgEffectBitmap);
+	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_SCALE, (float)PropertyPage::displacementAmount/4);
+	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_X_CHANNEL_SELECT, D2D1_CHANNEL_SELECTOR_R);
+	displacement->SetValue(D2D1_DISPLACEMENTMAP_PROP_Y_CHANNEL_SELECT, D2D1_CHANNEL_SELECTOR_B);
+	displacement->SetInput(1, ppBitmap);
+	m_d2dContext->DrawImage(displacement);
 
-	m_d2dContext->DrawBitmap(ppBitmap, rectf);
+	m_d2dContext->DrawBitmap(ppMask, rectf);
+
+	// Walk through the waveform data until we run out of samples or drawing surface.
+    int y = static_cast<int>(((rectf.top + 80)/256.0f) * pLevels->waveform[0][0] * 2);
+	int prevx = 0, prevy = y;
+    for (int x = (int)rectf.left; x < (int)rectf.right && x < (SA_BUFFER_SIZE-1); ++x) {
+        y = static_cast<int>(((rectf.top + 80)/256.0f) * pLevels->waveform[0][x - ((int)rectf.left - 1)]) * 2;
+		m_d2dContext->DrawLine(D2D1::Point2F((float)prevx, (float)prevy), D2D1::Point2F((float)x, (float)y), m_pBrush);
+		prevx = x;
+		prevy = y;
+    }
+
+	y = static_cast<int>(((rectf.bottom - 80)/256.0f) * pLevels->waveform[0][0] * 2);
+	prevx = 0, prevy = y;
+    for (int x = (int)rectf.left; x < (int)rectf.right && x < (SA_BUFFER_SIZE-1); ++x) {
+        y = static_cast<int>(((rectf.bottom - 80)/256.0f) * pLevels->waveform[0][x - ((int)rectf.left - 1)]) * 2;
+		m_d2dContext->DrawLine(D2D1::Point2F((float)prevx, (float)prevy), D2D1::Point2F((float)x, (float)y), m_pBrush);
+		prevx = x;
+		prevy = y;
+    }
 
 	m_d2dContext->EndDraw();
 }
