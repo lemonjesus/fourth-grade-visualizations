@@ -102,6 +102,7 @@ IDB_PNG1                RCDATA                  "Crevice Vector Field.png"
 IDB_PNG2                RCDATA                  "Crevice Mask.png"
 IDB_PNG3                RCDATA                  "Pod.png"
 IDB_PNG4                RCDATA                  "Electrode Scene.png"
+IDB_PNG5                RCDATA                  "Worm Head.png"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -130,6 +131,7 @@ BEGIN
     IDS_NAME_WAVESPECTRUM   "Wave Spectrum"
     IDS_NAME_PODS           "Pods"
     IDS_NAME_ELECTRODE      "Electrode"
+    IDS_NAME_WORM           "Worm"
 END
 
 #endif    // English (U.S.) resources

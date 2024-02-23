@@ -21,16 +21,18 @@
 #define IDS_NAME_WAVESPECTRUM           113
 #define IDS_NAME_PODS                   114
 #define IDS_NAME_ELECTRODE              115
+#define IDS_NAME_WORM                   116
 #define IDB_PNG1                        210
 #define IDB_PNG2                        211
 #define IDB_PNG3                        213
 #define IDB_PNG4                        214
+#define IDB_PNG5                        215
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        215
+#define _APS_NEXT_RESOURCE_VALUE        216
 #define _APS_NEXT_COMMAND_VALUE         32768
 #define _APS_NEXT_CONTROL_VALUE         201
 #define _APS_NEXT_SYMED_VALUE           105

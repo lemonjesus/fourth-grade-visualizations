@@ -435,6 +435,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizWorm.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VizWormhole.cpp"
 				>
 			</File>
@@ -537,6 +541,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\VizWorm.h"
+				>
+			</File>
+			<File
 				RelativePath=".\VizWormhole.h"
 				>
 			</File>
@@ -572,6 +580,10 @@
 			</File>
 			<File
 				RelativePath=".\wmpplugin1.rgs"
+				>
+			</File>
+			<File
+				RelativePath=".\Worm Head.png"
 				>
 			</File>
 		</Filter>
